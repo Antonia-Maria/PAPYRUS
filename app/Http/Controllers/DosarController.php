@@ -37,9 +37,12 @@ class DosarController extends Controller
         $query6 = (int) filter_var($query5, FILTER_SANITIZE_NUMBER_INT);
         $dosare->user_id = $query6;
         $dosare->save();
-        return Redirect::to('index.php');
+        return Redirect::to('http://localhost/PAPYRUS/PAPYRUS.files/index.php');
     }
 
+    public function show(){
+
+    }
 
 }
 
