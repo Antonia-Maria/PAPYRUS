@@ -22,5 +22,5 @@ Route::get('/', function () {
 Route::get('AdaugaDosar', function () {
     return view('AdaugaDosar');
 });
-Route::post('submit', 'DosarController@save');
-Route::get('VizualizareDosar', 'DosarController@Vizualizare');
+Route::post('submit', 'PapyrusController@save');
+Route::get('DetaliiDosar', 'PapyrusController@show');

@@ -80,11 +80,11 @@ if (isset($_SESSION['counter_index'])) {
     if ($filtru === null) {
 
         $con->select_db("papyrusdb");
-        $query = "SELECT  clienti.nume, dosare.status, dosare.problema_drept, dosare.data_inregistrare, utilizatori.Prenume,
+        $query = "SELECT  dosare.id, clienti.nume, dosare.status, dosare.problema_drept, dosare.data_inregistrare, utilizatori.Prenume,
        dosare.status, dosare.informatii FROM dosare INNER JOIN clienti ON dosare.client_id=clienti.id INNER JOIN utilizatori
            ON dosare.user_id=utilizatori.id ORDER BY dosare.id ASC";
     } else
-        $query = "SELECT  clienti.nume, dosare.status, dosare.problema_drept, dosare.data_inregistrare, utilizatori.Prenume,
+        $query = "SELECT  dosare.id, clienti.nume, dosare.status, dosare.problema_drept, dosare.data_inregistrare, utilizatori.Prenume,
        dosare.status, dosare.informatii FROM dosare INNER JOIN clienti ON dosare.client_id=clienti.id INNER JOIN utilizatori
            ON dosare.user_id=utilizatori.id WHERE clienti.nume='$filtru' ORDER BY dosare.id ASC";
 
@@ -140,9 +140,7 @@ if (isset($_SESSION['counter_index'])) {
             <td><div style='text-align:center'><?php echo($row["data_inregistrare"]); ?></div></td>
             <td><div style='text-align:center'><?php echo($row["Prenume"]); ?></div></td>
             <td><div style='text-align:center'><?php echo($row["status"]); ?></div></td>
-            <td><div style='text-align:center'><form action="http://papyrus.test/VizualizareDosar" method="GET" > <button type="submit" onclick="papyrus.test/Vizualizare">Vizualizare Dosar</button></form>
-                <form action="Editare Dosar" method="GET" ><button type="submit">Editare Dosar</button></form>
-                    <form action="Stergere Dosar" method="GET" > <button type="submit">Stergere Dosar</button></form></div>
+            <td><div style='text-align:center'><a href="http://papyrus.test/DetaliiDosar"<?php echo($row["id"]); ?>>Editare dosar</a>
                      <?php } ?> </td>
 
         </tr>
