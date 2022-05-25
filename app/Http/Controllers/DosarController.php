@@ -1,15 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\AdaugaDosar2;
+use App\Client;
 use App\Http\Controllers\Controller;
-use App\AdaugaDosar;
+use App\Dosar;
 use Faker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
-class AdaugaDosarController extends Controller
+class DosarController extends Controller
 
 {
 
@@ -25,7 +25,7 @@ class AdaugaDosarController extends Controller
         //filtreaza si afiseaza int din string
         $query3 = (int) filter_var($query2, FILTER_SANITIZE_NUMBER_INT);
         $faker = Faker\Factory::create();
-        $dosare = new AdaugaDosar();
+        $dosare = new Dosar();
         $dosare->problema_drept = $request->problema_drept;
         $dosare->status = $request->Status;
         $dosare->informatii = $request->info;
@@ -37,7 +37,7 @@ class AdaugaDosarController extends Controller
         $query6 = (int) filter_var($query5, FILTER_SANITIZE_NUMBER_INT);
         $dosare->user_id = $query6;
         $dosare->save();
-        return Redirect::to('http://localhost/papyrus/Project-Antonia/index.php');
+        return Redirect::to('index.php');
     }
 
 

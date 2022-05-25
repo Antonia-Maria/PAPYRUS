@@ -4,13 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AdaugaDosar extends Model
+class Client extends Model
 {
-    protected $table = 'dosare';
+    protected $table = 'clienti';
     public $timestamps = false;
 
     public static function pluck(string $string, string $string1)
     {
     }
-
 }

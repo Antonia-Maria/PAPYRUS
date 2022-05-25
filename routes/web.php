@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use app\http\controllers\DosareController;
+use Illuminate\Support\Facades\View;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,5 +22,5 @@ Route::get('/', function () {
 Route::get('AdaugaDosar', function () {
     return view('AdaugaDosar');
 });
-Route::post('submit', 'AdaugaDosarController@save');
-Route::post('incercare', 'VizualizareDosarController@show');
+Route::post('submit', 'DosarController@save');
+
