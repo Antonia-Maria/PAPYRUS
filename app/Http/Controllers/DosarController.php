@@ -40,7 +40,18 @@ class DosarController extends Controller
         return Redirect::to('http://localhost/PAPYRUS/PAPYRUS.files/index.php');
     }
 
-    public function show(){
+    public function Vizualizare(){
+
+
+        $data = DB::table('dosare')
+            ->Join('clienti', 'clienti.id', '=', 'dosare.client_id')
+            ->Join('utilizatori', 'utilizatori.id', '=', 'dosare.user_id')
+            ->orderBy('status')
+            ->get();
+//        dd($data);
+               $vizualizare = DB::select("SELECT dosare.client_id, clienti.nume, clienti.id, utilizatori.Prenume FROM dosare, clienti, utilizatori WHERE clienti.nume");
+        return view('VizualizareDosar')->with($data, $vizualizare);
+//        return($vizualizare);
 
     }
 

@@ -134,13 +134,13 @@ if (isset($_SESSION['counter_index'])) {
 
         as $row) { ?>
         <tr>
-            <td>  </td>
+                        <td>  </td>
             <td><div style='text-align:center'><?php echo($row["nume"]); ?></div></td>
             <td><div style='text-align:center'><?php echo($row["problema_drept"]); ?></div></td>
             <td><div style='text-align:center'><?php echo($row["data_inregistrare"]); ?></div></td>
             <td><div style='text-align:center'><?php echo($row["Prenume"]); ?></div></td>
             <td><div style='text-align:center'><?php echo($row["status"]); ?></div></td>
-            <td><div style='text-align:center'><form action="VizualizareDosar" method="GET" > <button type="submit">Vizualizare Dosar</button></form>
+            <td><div style='text-align:center'><form action="http://papyrus.test/VizualizareDosar" method="GET" > <button type="submit" onclick="papyrus.test/Vizualizare">Vizualizare Dosar</button></form>
                 <form action="Editare Dosar" method="GET" ><button type="submit">Editare Dosar</button></form>
                     <form action="Stergere Dosar" method="GET" > <button type="submit">Stergere Dosar</button></form></div>
                      <?php } ?> </td>
