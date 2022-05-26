@@ -42,6 +42,9 @@ if (isset($_SESSION['counter_editaredosar'])) {
     ?>
 
 </div>
+<div style='text-align:right'>
+    <button type="button"><a href="../../Papyrus2/logout.php">LOG OUT</a></button>
+</div>
 </html> </b>
 <div style='text-align:left'>
     <i>

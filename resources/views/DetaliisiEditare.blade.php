@@ -28,10 +28,10 @@ if (isset($_SESSION['counter_editaredosar'])) {
 <head>
 
     <title>Detalii Dosare</title>
-<style>table {
-        margin-left: auto;
-        margin-right: auto;
-    }</style>
+    <style>table {
+            margin-left: auto;
+            margin-right: auto;
+        }</style>
 </head>
 
 <div style='text-align:right; font-size: 20px;'>
@@ -40,6 +40,9 @@ if (isset($_SESSION['counter_editaredosar'])) {
     echo $msg;
     ?>
 </div>
+<div style='text-align:right'>
+    <button type="button"><a href="../../Papyrus2/logout.php">LOG OUT</a></button>
+</div>
 </html> </b>
 <div style='text-align:left'>
     <i>
@@ -47,13 +50,10 @@ if (isset($_SESSION['counter_editaredosar'])) {
 <div style='text-align:center'><br><br>
     <span style="font-size: 20px;">
 <span style="font-size: 15px; text-align: center;"><h1> Detalii suplimentare si actiuni </h1></span>
-<br><br><br><br>
+<br><br>
 
 
-
-
-        <table border="1"style='text-align:center'>
-
+        <table border="1" style='text-align:center'>
 
 
 <tr>

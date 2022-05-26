@@ -39,8 +39,13 @@ $result3 = mysqli_query($con, $query3) or die(mysqli_error());
 <div style='text-align:right; font-size: 20px;'>
     <i><b>
     <?php $msg = "Ai vizitat aceasta pagina de " . $_SESSION['counter_adaugadosar'] . " ori.";
-    echo $msg; ?>
+    echo $msg;
+    ?>
 </div>
+        <div style='text-align:right'>
+            <button type="button"><a href="../../Papyrus2/logout.php">LOG OUT</a></button>
+        </div>
+
 </html> </b>
 <div style='text-align:left'>
     <i>
