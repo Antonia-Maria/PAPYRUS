@@ -50,13 +50,16 @@ if (isset($_SESSION['counter_index'])) {
     <span style="text-transform:uppercase; font-size: 20px;"><?php echo $_COOKIE["username"] ?></span>
 
     <div style='text-align:right'>
-        <button type="button"><a href="../../Papyrus2/logout.php">LOG OUT</a></button>
+        <button type="button"><a href="http://localhost/PAPYRUS/PAPYRUS.files/logout.php">LOG OUT</a></button>
     </div>
     <div style='text-align:center'>
         <button type="button"><a href="http://papyrus.test/AdaugaDosar">ADAUGA DOSAR NOU</a></button>
     </div>
-
-    <br><br><br>
+    <br><br>
+    <div style='text-align:center'>
+        <button type="button"><a href="http://papyrus.test/DetaliiDosar">DETALII SI EDITARE</a></button>
+    </div>
+    <br><br>
 
     <?php
 
@@ -104,18 +107,21 @@ if (isset($_SESSION['counter_index'])) {
 
     <h1> DOSARE </h1>
 
-    <table>
-        <style> table {
-                counter-reset: rowNumber;
-            }
+    <style> table {
+            counter-reset: row-Num -1;
+        }
 
-            table tr::before {
-                display: table-cell;
-                counter-increment: rowNumber;
-                content: counter(rowNumber) ".";
-                padding-right: 0.3em;
-                text-align: right;
-            } </style>
+        table tr {
+
+            counter-increment: row-Num;
+
+        }
+    table tr:not(:first-child) td:first-child::before{
+        content: counter(row-Num)". ";
+    }</style>
+
+    <table>
+
         <link rel="stylesheet" href="style.php" media="screen">
 
         <tr>
@@ -123,10 +129,9 @@ if (isset($_SESSION['counter_index'])) {
             <th>Nr. crt.</th>
             <th>Nume dosar</th>
             <th>Speta</th>
-            <th>Data inregistrare</th>
             <th>Referent</th>
-            <th>Status</th>
-            <th>Mai multe actiuni</th>
+
+
         </tr>
 
 
@@ -137,11 +142,8 @@ if (isset($_SESSION['counter_index'])) {
                         <td>  </td>
             <td><div style='text-align:center'><?php echo($row["nume"]); ?></div></td>
             <td><div style='text-align:center'><?php echo($row["problema_drept"]); ?></div></td>
-            <td><div style='text-align:center'><?php echo($row["data_inregistrare"]); ?></div></td>
             <td><div style='text-align:center'><?php echo($row["Prenume"]); ?></div></td>
-            <td><div style='text-align:center'><?php echo($row["status"]); ?></div></td>
-            <td><div style='text-align:center'><a href="http://papyrus.test/DetaliiDosar"<?php echo($row["id"]); ?>>Editare dosar</a>
-                     <?php } ?> </td>
+                                 <?php } ?>
 
         </tr>
     </table>

@@ -42,9 +42,6 @@ $result3 = mysqli_query($con, $query3) or die(mysqli_error());
     echo $msg;
     ?>
 </div>
-        <div style='text-align:right'>
-            <button type="button"><a href="../../Papyrus2/logout.php">LOG OUT</a></button>
-        </div>
 
 </html> </b>
 <div style='text-align:left'>
@@ -52,6 +49,12 @@ $result3 = mysqli_query($con, $query3) or die(mysqli_error());
         <span style="font-size: 25px; font-family:Lucida Calligraphy"> PAPYRUS </span></div>
 <div style='text-align:center'><br><br>
     <span style="font-size: 20px;">
+     <div style='text-align:right'>
+    <button type="button"><a href="http://localhost/PAPYRUS/PAPYRUS.files/logout.php">LOG OUT</a></button>
+</div><br>
+        <div style='text-align:right'>
+    <button type="button"><a href="http://localhost/PAPYRUS/PAPYRUS.files/index.php">HOME</a></button>
+</div>
 
 <span style="font-size: 15px; text-align: center;"><h1> Adauga date dosar </h1></span>
         <br><br><br><br>
