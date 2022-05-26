@@ -27,8 +27,11 @@ if (isset($_SESSION['counter_editaredosar'])) {
 <html lang="en">
 <head>
 
-    <title>Editare Dosar</title>
-
+    <title>Detalii Dosare</title>
+<style>table {
+        margin-left: auto;
+        margin-right: auto;
+    }</style>
 </head>
 
 <div style='text-align:right; font-size: 20px;'>
@@ -43,9 +46,13 @@ if (isset($_SESSION['counter_editaredosar'])) {
         <span style="font-size: 25px; font-family:Lucida Calligraphy"> PAPYRUS </span></div>
 <div style='text-align:center'><br><br>
     <span style="font-size: 20px;">
+<span style="font-size: 15px; text-align: center;"><h1> Detalii suplimentare si actiuni </h1></span>
+<br><br><br><br>
 
 
-        <table border="1">
+
+
+        <table border="1"style='text-align:center'>
 
 
 
@@ -67,6 +74,8 @@ if (isset($_SESSION['counter_editaredosar'])) {
     <td>{{$dosar['status']}}</td>
     <td>{{$dosar['informatii']}}</td>
     <td>{{$dosar['Prenume']}}</td>
+                    <td><a href={{"Editare/".$dosar['id']}}>Editare</a></td>
+                    <td><a href={{"Stergere/".$dosar['id']}}>Stergere</a></td>
 </tr>
 
             @endforeach

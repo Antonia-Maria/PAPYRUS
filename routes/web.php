@@ -24,3 +24,6 @@ Route::get('AdaugaDosar', function () {
 });
 Route::post('submit', 'PapyrusController@save');
 Route::get('DetaliiDosar', 'PapyrusController@show');
+Route::get('Editare/{id}', 'PapyrusController@edit');
+Route::post('edit', 'PapyrusController@update');
+Route::get('Stergere/{id}', 'PapyrusController@delete');

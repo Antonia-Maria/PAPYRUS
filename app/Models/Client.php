@@ -9,4 +9,5 @@ class Client extends Model
     protected $table = 'clienti';
     public $timestamps = false;
 
+
 }

@@ -60,7 +60,7 @@ $result3 = mysqli_query($con, $query3) or die(mysqli_error());
             <option value="Nume client">Nume client</option>
               <?php foreach ($result
 
-          as $row) { ?>
+        as $row) { ?>
           <option><?php echo($row["nume"]); }?></option>
         </datalist>
         <br><br>
