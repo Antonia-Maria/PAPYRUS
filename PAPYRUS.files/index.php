@@ -65,20 +65,40 @@ if (isset($_SESSION['counter_index'])) {
 
     $data = null;
     $filtru = null;
-    if (isset($_POST['submit'])) {
-        $q = $con->real_escape_string($_POST['q']);
-        $column = $con->real_escape_string($_POST['column']);
+    $nume = null;
+    $speta = null;
+    $referent = null;
 
-        if ($column == "" || ($column != "nume" && $column != "Prenume" && $column != "data_inregistrare" && $column != "problema_drept"))
-            $column = "nume";
+    if (isset($_POST['submit_nume'])) {
+        $q = $con->real_escape_string($_POST['q_nume']);
 
-        $sql = $con->query("SELECT nume FROM clienti WHERE $column LIKE '%$q%'");
-        if ($sql->num_rows > 0) {
-            while ($data = $sql->fetch_array())
+        $sql_nume = $con->query("SELECT nume FROM clienti WHERE clienti.nume LIKE '%$q%'");
+        if ($sql_nume->num_rows > 0) {
+            while ($data = $sql_nume->fetch_array())
                 $filtru = $data['nume'];
-        } else
-            echo "Cautarea nu afiseaza niciun rezultat";
+            $nume = "clienti.nume";
+        }
+    } elseif (isset($_POST['submit_speta'])) {
+        $q = $con->real_escape_string($_POST['q_speta']);
+
+        $sql_speta = $con->query("SELECT problema_drept FROM dosare WHERE dosare.problema_drept LIKE '%$q%'");
+        if ($sql_speta->num_rows > 0) {
+            while ($data = $sql_speta->fetch_array())
+                $filtru = $data['problema_drept'];
+            $speta = "dosare.problema_drept";
+        }
+    } elseif (isset($_POST['submit_referent'])) {
+        $q = $con->real_escape_string($_POST['q_referent']);
+
+
+        $sql_referent = $con->query("SELECT Prenume FROM utilizatori WHERE utilizatori.Prenume LIKE '%$q%'");
+        if ($sql_referent->num_rows > 0) {
+            while ($data = $sql_referent->fetch_array())
+                $filtru = $data['Prenume'];
+            $referent = "utilizatori.Prenume";
+        }
     }
+
 
     if ($filtru === null) {
 
@@ -86,22 +106,35 @@ if (isset($_SESSION['counter_index'])) {
         $query = "SELECT  dosare.id, clienti.nume, dosare.status, dosare.problema_drept, dosare.data_inregistrare, utilizatori.Prenume,
        dosare.status, dosare.informatii FROM dosare INNER JOIN clienti ON dosare.client_id=clienti.id INNER JOIN utilizatori
            ON dosare.user_id=utilizatori.id ORDER BY dosare.id ASC";
-    } else
+    } elseif ($nume === 'clienti.nume')
         $query = "SELECT  dosare.id, clienti.nume, dosare.status, dosare.problema_drept, dosare.data_inregistrare, utilizatori.Prenume,
        dosare.status, dosare.informatii FROM dosare INNER JOIN clienti ON dosare.client_id=clienti.id INNER JOIN utilizatori
            ON dosare.user_id=utilizatori.id WHERE clienti.nume='$filtru' ORDER BY dosare.id ASC";
+    elseif ($speta === 'dosare.problema_drept')
+        $query = "SELECT  dosare.id, clienti.nume, dosare.status, dosare.problema_drept, dosare.data_inregistrare, utilizatori.Prenume,
+       dosare.status, dosare.informatii FROM dosare INNER JOIN clienti ON dosare.client_id=clienti.id INNER JOIN utilizatori
+           ON dosare.user_id=utilizatori.id WHERE dosare.problema_drept='$filtru' ORDER BY dosare.id ASC";
+    elseif ($referent === "utilizatori.Prenume")
+        $query = "SELECT  dosare.id, clienti.nume, dosare.status, dosare.problema_drept, dosare.data_inregistrare, utilizatori.Prenume,
+       dosare.status, dosare.informatii FROM dosare INNER JOIN clienti ON dosare.client_id=clienti.id INNER JOIN utilizatori
+           ON dosare.user_id=utilizatori.id WHERE utilizatori.Prenume='$filtru' ORDER BY dosare.id ASC";
 
+    else echo "Cautarea nu afiseaza niciun rezultat";
 
     $result = mysqli_query($con, $query) or die(mysqli_error()); ?>
 
 
     <form method="post" action="index.php">
-        <input type="text" name="q" placeholder="Cauta dosar...">
-        <select name="column">
-            <option value="">Alege filtru</option>
-            <option value="nume">Nume dosar</option>
-        </select>
-        <input type="submit" name="submit" value="Aplica">
+        <input type="text" name="q_nume" placeholder="Cauta dosar dupa nume">
+        <input type="submit" name="submit_nume" value="Aplica">
+        <button><?php $data = null ?>Sterge cautarea</button>
+        <br><br>
+        <input type="text" name="q_speta" placeholder="Cauta dosar dupa speta">
+        <input type="submit" name="submit_speta" value="Aplica">
+        <button><?php $data = null ?>Sterge cautarea</button>
+        <br><br>
+        <input type="text" name="q_referent" placeholder="Cauta dosar dupa referent">
+        <input type="submit" name="submit_referent" value="Aplica">
         <button><?php $data = null ?>Sterge cautarea</button>
     </form>
 
@@ -116,9 +149,10 @@ if (isset($_SESSION['counter_index'])) {
             counter-increment: row-Num;
 
         }
-    table tr:not(:first-child) td:first-child::before{
-        content: counter(row-Num)". ";
-    }</style>
+
+        table tr:not(:first-child) td:first-child::before {
+            content: counter(row-Num) ". ";
+        }</style>
 
     <table>
 
@@ -139,11 +173,17 @@ if (isset($_SESSION['counter_index'])) {
 
         as $row) { ?>
         <tr>
-                        <td>  </td>
-            <td><div style='text-align:center'><?php echo($row["nume"]); ?></div></td>
-            <td><div style='text-align:center'><?php echo($row["problema_drept"]); ?></div></td>
-            <td><div style='text-align:center'><?php echo($row["Prenume"]); ?></div></td>
-                                 <?php } ?>
+            <td></td>
+            <td>
+                <div style='text-align:center'><?php echo($row["nume"]); ?></div>
+            </td>
+            <td>
+                <div style='text-align:center'><?php echo($row["problema_drept"]); ?></div>
+            </td>
+            <td>
+                <div style='text-align:center'><?php echo($row["Prenume"]); ?></div>
+            </td>
+            <?php } ?>
 
         </tr>
     </table>

@@ -76,18 +76,20 @@ if (isset($_SESSION['counter_detaliisieditaredosar'])) {
 
 
 <tr>
-    <td>Nr. crt.</td>
-    <td>Nume Dosar</td>
-    <td>Speta</td>
-    <td>Data Inregistrare</td>
-    <td>Status</td>
-    <td>Informatii</td>
-    <td>Referent</td>
-    <td>Actiuni</td>
+    <th>Nr. crt.</th>
+    <th>ID Dosar</th>
+    <th>Nume Dosar</th>
+    <th>Speta</th>
+    <th>Data Inregistrare</th>
+    <th>Status</th>
+    <th>Informatii</th>
+    <th>Referent</th>
+    <th>Actiuni</th>
 </tr>
             @foreach($dosare as $dosar)
                 <tr>
     <td> </td>
+                    <td>{{$dosar['id']}}</td>
     <td>{{$dosar['nume']}}</td>
     <td>{{$dosar['problema_drept']}}</td>
     <td>{{$dosar['data_inregistrare']}}</td>
