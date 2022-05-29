@@ -77,7 +77,6 @@ if (isset($_SESSION['counter_detaliisieditaredosar'])) {
 
 <tr>
     <th>Nr. crt.</th>
-    <th>ID Dosar</th>
     <th>Nume Dosar</th>
     <th>Speta</th>
     <th>Data Inregistrare</th>
@@ -89,7 +88,7 @@ if (isset($_SESSION['counter_detaliisieditaredosar'])) {
             @foreach($dosare as $dosar)
                 <tr>
     <td> </td>
-                    <td>{{$dosar['id']}}</td>
+
     <td>{{$dosar['nume']}}</td>
     <td>{{$dosar['problema_drept']}}</td>
     <td>{{$dosar['data_inregistrare']}}</td>

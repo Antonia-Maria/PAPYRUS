@@ -10,10 +10,20 @@ use Faker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Kernel;
 
 class PapyrusController extends Controller
 
 {
+
+    function show()
+    {
+        $dosar = Client::join('dosare', 'dosare.client_id', '=', 'client.id')
+                             ('dosare', 'dosare.user_id', '=', 'utilizatori.id')
+            ->get(['client.nume', 'dosare.problema_drept', 'dosare.data_inregistrare', 'dosare.status', 'dosare.informatii', 'utilizatori.Prenume']);
+
+        return view('DetaliisiEditare', ['dosare' => $dosar]);
+    }
 
     public function save(Request $request)
 
@@ -42,20 +52,20 @@ class PapyrusController extends Controller
         return Redirect::to('http://localhost/PAPYRUS/PAPYRUS.files/index.php');
     }
 
-    public function show()
-    {
-        $join = DB::table('dosare')
-            ->join('clienti', 'dosare.client_id', '=', 'clienti.id')
-            ->join('utilizatori', 'dosare.user_id', '=', 'utilizatori.id')
-            ->orderBy('nume')
-            ->select('dosare.id', 'clienti.nume', 'dosare.problema_drept', 'dosare.data_inregistrare', 'dosare.status', 'dosare.informatii', 'utilizatori.Prenume')
-            ->get();
-//        dd($join);
-        $array_list = json_decode(json_encode($join), true);
-
-        return view('DetaliisiEditare', ['dosare' => $array_list]);
-
-    }
+//    public function show()
+//    {
+//        $join = DB::table('dosare')
+//            ->join('clienti', 'dosare.client_id', '=', 'clienti.id')
+//            ->join('utilizatori', 'dosare.user_id', '=', 'utilizatori.id')
+//            ->orderBy('nume')
+//            ->select('dosare.id', 'clienti.nume', 'dosare.problema_drept', 'dosare.data_inregistrare', 'dosare.status', 'dosare.informatii', 'utilizatori.Prenume')
+//            ->get();
+////        dd($join);
+//        $array_list = json_decode(json_encode($join), true);
+//
+//        return view('DetaliisiEditare', ['dosare' => $array_list]);
+//
+//    }
 
     public function edit($id)
     {
