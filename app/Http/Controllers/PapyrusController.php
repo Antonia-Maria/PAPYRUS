@@ -18,9 +18,9 @@ class PapyrusController extends Controller
 
     function show()
     {
-        $dosar = Client::join('dosare', 'dosare.client_id', '=', 'client.id')
+        $dosar = Client::join('dosare', 'dosare.client_id', '=', 'clienti.id')
                              ('dosare', 'dosare.user_id', '=', 'utilizatori.id')
-            ->get(['client.nume', 'dosare.problema_drept', 'dosare.data_inregistrare', 'dosare.status', 'dosare.informatii', 'utilizatori.Prenume']);
+            ->get(['clienti.nume', 'dosare.problema_drept', 'dosare.data_inregistrare', 'dosare.status', 'dosare.informatii', 'utilizatori.Prenume']);
 
         return view('DetaliisiEditare', ['dosare' => $dosar]);
     }
