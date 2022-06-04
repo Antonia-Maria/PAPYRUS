@@ -16,7 +16,7 @@ session_start()
  <span style="font-size: 20px;">
 
      <?php
-
+// setare sesiune
      if (isset($_SESSION['counter_logare'])) {
          $_SESSION['counter_logare'] += 1;
      } else {
@@ -46,7 +46,7 @@ echo "<br/><br/><br/><br/><br/>"
 <?php
 echo "<br/><br/><br/><br/><br/>"
 ?>
-
+<!-- formular log in -->
 <div style='text-align:center'>
     <!DOCTYPE html>
     <html lang="en">

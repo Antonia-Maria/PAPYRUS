@@ -1,42 +1,42 @@
 <?php
 
 session_start();
-// Change this to your connection info.
+// este setata conexiunea la baza de date
 require "database_connection.php";
-
-if(isset($_COOKIE["username"])){
+// se verifica daca este setat cookie; daca da - redirectionare catre index
+if (isset($_COOKIE["username"])) {
     header("location:index.php");
 
 
 }
-if ( !isset($_POST['username'], $_POST['password']) ) {
-    // Could not get the data that should have been sent.
+// se verifica daca sunt completate campurile pentru logare
+if (!isset($_POST['username'], $_POST['password'])) {
+    // daca nu, mesaj pentru completare
     exit('Please fill both the username and password fields!');
 }
 
 /** @var  $con */
 if ($stmt = $con->prepare('SELECT id, Parola FROM utilizatori WHERE username = ?')) {
-    // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
+
     $stmt->bind_param('s', $_POST['username']);
     $stmt->execute();
-    // Store the result so we can check if the account exists in the database.
+    // Se pastreaza rezultatul, pentru a se verifica daca exista contul in baza de date
     $stmt->store_result();
     if ($stmt->num_rows > 0) {
         $stmt->bind_result($id, $password);
         $stmt->fetch();
-        // Account exists, now we verify the password.
-        // Note: remember to use password_hash in your registration file to store the hashed passwords.
+        // S-a verificat existenta contului, acum se verifica parola
         if ($_POST['password'] === $password) {
             setcookie("username", $_POST['username'], time() + 3600, "/", "", 0);
-            header ("location: index.php");
-            // Verification success! User has logged-in!
-            // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
+            header("location: index.php");
+            // Utilizatorul s-a logat cu succes
+            // Sunt create cookie-uri, pentru a fi recunoscut utilizatorul dupa logare
         } else {
-            // Incorrect password
+            // Pop-out message pentru parola incorecta
             echo '<script type="text/javascript">alert("Parola incorecta");history.go(-1);</script>';
         }
     } else {
-        // Incorrect username
+        // Pop-out message pentru Username incorect
         echo '<script type="text/javascript">alert("Username incorect");history.go(-1);</script>';
     }
 

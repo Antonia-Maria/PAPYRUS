@@ -1,22 +1,22 @@
 <?php
 
-
+// blade care afiseaza executia functiei "show" din controller
 $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
 $DATABASE_PASS = '';
 $DATABASE_NAME = 'papyrusdb';
-// Try and connect using the info above.
+// conectare la baza de date
 $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 if (mysqli_connect_errno()) {
-    // If there is an error with the connection, stop the script and display the error.
+    // In caz de eroare la conexiune, returneaza mesajul:
     exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
 session_start();
-
+// verifica daca este setat cookie; daca nu este, redirectioneaza catre pagina de logare
 if (!isset($_COOKIE["username"])) {
     header("location:logare.php");
 }
-
+// verifica daca este setata sesiunea
 if (isset($_SESSION['counter_detaliisieditaredosar'])) {
     $_SESSION['counter_detaliisieditaredosar'] += 1;
 } else {
@@ -57,7 +57,7 @@ if (isset($_SESSION['counter_detaliisieditaredosar'])) {
 
 <span style="font-size: 15px; text-align: center;"><h1> Detalii suplimentare si actiuni </h1></span>
 <br><br>
-
+{{-- tabel pentru afisarea informatiilor din tabela "dosare"--}}
         <style> table {
             counter-reset: row-Num -1;
         }
@@ -77,7 +77,6 @@ if (isset($_SESSION['counter_detaliisieditaredosar'])) {
 
 <tr>
     <th>Nr. crt.</th>
-    <th>ID Dosar</th>
     <th>Nume Dosar</th>
     <th>Speta</th>
     <th>Data Inregistrare</th>
@@ -86,6 +85,7 @@ if (isset($_SESSION['counter_detaliisieditaredosar'])) {
     <th>Referent</th>
     <th>Actiuni</th>
 </tr>
+{{--functie pentru aducerea informatiilor din baza de date--}}
             @foreach($dosare as $dosar)
                 <tr>
     <td> </td>

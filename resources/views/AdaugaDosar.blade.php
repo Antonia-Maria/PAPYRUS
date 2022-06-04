@@ -1,21 +1,23 @@
 <?php
 
+//blade afisat din butonul Adauga Dosar din index
 $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
 $DATABASE_PASS = '';
 $DATABASE_NAME = 'papyrusdb';
-// Try and connect using the info above.
+// conectare la baza de date
 $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+// In caz de eroare la conexiune, returneaza mesajul:
 if (mysqli_connect_errno()) {
-    // If there is an error with the connection, stop the script and display the error.
+
     exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
 session_start();
-
+// verifica daca este setat cookie; daca nu este, redirectioneaza catre pagina de logare
 if (!isset($_COOKIE["username"])) {
     header("location:logare.php");
 }
-
+// verifica daca este setata sesiunea
 if (isset($_SESSION['counter_adaugadosar'])) {
     $_SESSION['counter_adaugadosar'] += 1;
 } else {

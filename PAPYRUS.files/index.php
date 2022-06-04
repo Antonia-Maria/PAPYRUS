@@ -4,18 +4,19 @@ $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
 $DATABASE_PASS = '';
 $DATABASE_NAME = 'papyrusdb';
-// Try and connect using the info above.
+// conectare la baza de date cu info de mai sus
 $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 if (mysqli_connect_errno()) {
-    // If there is an error with the connection, stop the script and display the error.
+    // in caz de eroare de conectare, rularea se opreste si afiseaza mesaj de eroare
     exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
-session_start();
 
+session_start();
+// se verifica daca exista cookie setat; daca nu, se redirectioneaza in pagina de logare
 if (!isset($_COOKIE["username"])) {
     header("location:logare.php");
 }
-
+//counter sesiune
 if (isset($_SESSION['counter_index'])) {
     $_SESSION['counter_index'] += 1;
 } else {
@@ -62,6 +63,7 @@ if (isset($_SESSION['counter_index'])) {
     <br><br>
 
     <?php
+// setare filtre dupa 3 criterii(nume dosar, speta si referent)
 
     $data = null;
     $filtru = null;
@@ -140,6 +142,8 @@ if (isset($_SESSION['counter_index'])) {
 
     <h1> DOSARE </h1>
 
+<!--    afisare informatii din 3 coloane din tabelul "dosare" -->
+
     <style> table {
             counter-reset: row-Num -1;
         }
@@ -168,6 +172,7 @@ if (isset($_SESSION['counter_index'])) {
 
         </tr>
 
+<!--functie pentru aducerea informatiilor din baza de date-->
 
         <?php foreach ($result
 
