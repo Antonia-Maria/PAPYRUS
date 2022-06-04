@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use app\http\controllers\DosareController;
-use Illuminate\Support\Facades\View;
+
 
 /*
 |--------------------------------------------------------------------------

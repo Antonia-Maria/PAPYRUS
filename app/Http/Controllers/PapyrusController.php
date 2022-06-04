@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Dosar;
 use Faker;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use App\Client;
+use App\Utilizator;
 
 class PapyrusController extends Controller
 
@@ -19,35 +20,25 @@ class PapyrusController extends Controller
 
     public function save(Request $request)
     {
-        // selectez din baza de date, din tabela "clienti", id-ul specific numelui clientului ales in lista(adus din coloana "nume")
-        // va returna un array
-        $query_nume = DB::select("SELECT id FROM clienti WHERE nume='$request->nume'limit 1");
-        // va returna cheile din array ca string, dar ramane array
-        $array_nume = array_map("json_encode", $query_nume);
-        // separa fiecare element din array si ramane doar string, nu va mai fi array
-        $implode_nume = implode(' ', $array_nume);
-        //filtreaza si afiseaza integer-ul(id-ul) din string-ul rezultat, pentru a putea fi atribuit coloanei client_id din dosare si a sti ce nume cheama din tabela "clienti"
-        $nume_filter = (int)filter_var($implode_nume, FILTER_SANITIZE_NUMBER_INT);
+        $nume_dosar = Client::query()
+            ->SELECT('clienti.id')
+            ->WHERE('nume', '=', $request->nume)
+            ->LIMIT(1)
+            ->get();
         $faker = Faker\Factory::create();
         $dosare = new Dosar();
         $dosare->problema_drept = $request->problema_drept;
         $dosare->status = $request->Status;
         $dosare->informatii = $request->info;
         $dosare->data_inregistrare = $faker->dateTimeThisMonth;
-        $dosare->client_id = $nume_filter;
-        // selectez din baza de date, din tabela "utilizatori", id-ul specific Prenumelui utilizatorului ales in lista(adus din coloana "Prenume")
-        // va returna un array
-        $query_Prenume = DB::select("SELECT id FROM utilizatori WHERE Prenume='$request->Prenume' limit 1");
-        // va returna cheile din array ca string, dar ramane array
-        $array_Prenume = array_map("json_encode", $query_Prenume);
-        // separa fiecare element din array si ramane doar string, nu va mai fi array
-        $implode_Prenume = implode(' ', $array_Prenume);
-        //filtreaza si afiseaza integer-ul(id-ul) din string-ul rezultat, pentru a putea fi atribuit coloanei user_id din dosare si a sti ce Prenume cheama din tabela "utilizatori"
-        $Prenume_filter = (int)filter_var($implode_Prenume, FILTER_SANITIZE_NUMBER_INT);
-        $dosare->user_id = $Prenume_filter;
-        // se salveaza toate datele aduse cu request din front-end pentru un nou dosar
+        $dosare->client_id = $nume_dosar[0]['id'];
+        $referent_dosar = Utilizator::query()
+            ->SELECT('utilizatori.id')
+            ->WHERE('Prenume', '=', $request->Prenume)
+            ->LIMIT(1)
+            ->get();
+        $dosare->user_id = $referent_dosar[0]['id'];
         $dosare->save();
-        // redirectionez catre index pentru a putea fi vizualizat noul dosar adaugat
         return Redirect::to('http://localhost/PAPYRUS/PAPYRUS.files/index.php');
     }
 
@@ -86,33 +77,23 @@ class PapyrusController extends Controller
     {
 
         $dosar = Dosar::find($request->id);
-        // selectez din baza de date, din tabela "clienti", id-ul specific numelui clientului ales in lista(adus din coloana "nume")
-        // va returna un array
-        $query_nume = DB::select("SELECT id FROM clienti WHERE nume='$request->nume'limit 1");
-        // va returna cheile din array ca string, dar ramane array
-        $array_nume = array_map("json_encode", $query_nume);
-        // separa fiecare element din array si ramane doar string, nu va mai fi array
-        $implode_nume = implode(' ', $array_nume);
-        //filtreaza si afiseaza integer-ul(id-ul) din string-ul rezultat, pentru a putea fi atribuit coloanei client_id din dosare si a sti ce nume cheama din tabela "clienti"
-        $nume_filter = (int)filter_var($implode_nume, FILTER_SANITIZE_NUMBER_INT);
-        $dosar->client_id = $nume_filter;
+        $nume_dosar = Client::query()
+            ->SELECT('clienti.id')
+            ->WHERE('nume', '=', $request->nume)
+            ->LIMIT(1)
+            ->get();
+        $dosar->client_id = $nume_dosar[0]['id'];
         $dosar->problema_drept = $request->problema_drept;
         $dosar->data_inregistrare = $request->data_inregistrare;
         $dosar->status = $request->status;
         $dosar->informatii = $request->informatii;
-        // selectez din baza de date, din tabela "utilizatori", id-ul specific Prenumelui utilizatorului ales in lista(adus din coloana "Prenume")
-        // va returna un array
-        $query_Prenume = DB::select("SELECT id FROM utilizatori WHERE Prenume='$request->Prenume' limit 1");
-        // va returna cheile din array ca string, dar ramane array
-        $array_Prenume = array_map("json_encode", $query_Prenume);
-        // separa fiecare element din array si ramane doar string, nu va mai fi array
-        $implode_Prenume = implode(' ', $array_Prenume);
-        //filtreaza si afiseaza integer-ul(id-ul) din string-ul rezultat, pentru a putea fi atribuit coloanei user_id din dosare si a sti ce Prenume cheama din tabela "utilizatori"
-        $Prenume_filter = (int)filter_var($implode_Prenume, FILTER_SANITIZE_NUMBER_INT);
-        $dosar->user_id = $Prenume_filter;
-        // se salveaza toate datele aduse cu request din front-end pentru dosarul modificat
+        $referent_dosar = Utilizator::query()
+            ->SELECT('utilizatori.id')
+            ->WHERE('Prenume', '=', $request->Prenume)
+            ->LIMIT(1)
+            ->get();
+        $dosar->user_id = $referent_dosar[0]['id'];
         $dosar->save();
-        // redirectionez catre blade-ul DetaliisiEditare pentru a putea fi vizualizat dosarul modificat
         return redirect('http://papyrus.test/DetaliiDosar');
     }
 
