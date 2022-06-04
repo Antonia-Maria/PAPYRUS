@@ -11,6 +11,12 @@ class Client extends Model
     public $timestamps = false;
 
     protected  $fillable = [
-        'nume', 'CNP', 'adresa', 'nr_telefon'
+        'id', 'nume', 'CNP', 'adresa', 'nr_telefon'
     ];
+
+
+public function dosar() {
+    return $this->hasOne(Dosar::class);
+}
+
 }

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use app\http\controllers\DosareController;
-use Illuminate\Support\Facades\View;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +23,8 @@ Route::get('AdaugaDosar', function () {
     return view('AdaugaDosar');
 });
 Route::post('submit', 'PapyrusController@save');
-//Route::get('DetaliiDosar', 'PapyrusController@show');
 Route::get('Editare/{id}', 'PapyrusController@edit');
 Route::post('edit', 'PapyrusController@update');
 Route::get('Stergere/{id}', 'PapyrusController@delete');
-Route::get('Eloquent', 'PapyrusController@show');
+Route::get('DetaliiDosar', 'PapyrusController@show');
 

@@ -14,6 +14,9 @@ class Dosar extends Model
 
     protected $table = 'dosare';
     public $timestamps = false;
+    protected  $fillable = [
+        'client_id', 'problema_drept', 'data_inregistrare', 'user_id', 'status', 'informatii'
+    ];
 
 
 }
