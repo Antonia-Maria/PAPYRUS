@@ -107,19 +107,19 @@ if (isset($_SESSION['counter_index'])) {
         $con->select_db("papyrusdb");
         $query = "SELECT  dosare.id, clienti.nume, dosare.status, dosare.problema_drept, dosare.data_inregistrare, utilizatori.Prenume,
        dosare.status, dosare.informatii FROM dosare INNER JOIN clienti ON dosare.client_id=clienti.id INNER JOIN utilizatori
-           ON dosare.user_id=utilizatori.id ORDER BY dosare.id ASC";
+           ON dosare.user_id=utilizatori.id ORDER BY clienti.nume ASC";
     } elseif ($nume === 'clienti.nume')
         $query = "SELECT  dosare.id, clienti.nume, dosare.status, dosare.problema_drept, dosare.data_inregistrare, utilizatori.Prenume,
        dosare.status, dosare.informatii FROM dosare INNER JOIN clienti ON dosare.client_id=clienti.id INNER JOIN utilizatori
-           ON dosare.user_id=utilizatori.id WHERE clienti.nume='$filtru' ORDER BY dosare.id ASC";
+           ON dosare.user_id=utilizatori.id WHERE clienti.nume='$filtru' ORDER BY clienti.nume ASC";
     elseif ($speta === 'dosare.problema_drept')
         $query = "SELECT  dosare.id, clienti.nume, dosare.status, dosare.problema_drept, dosare.data_inregistrare, utilizatori.Prenume,
        dosare.status, dosare.informatii FROM dosare INNER JOIN clienti ON dosare.client_id=clienti.id INNER JOIN utilizatori
-           ON dosare.user_id=utilizatori.id WHERE dosare.problema_drept='$filtru' ORDER BY dosare.id ASC";
+           ON dosare.user_id=utilizatori.id WHERE dosare.problema_drept='$filtru' ORDER BY clienti.nume ASC";
     elseif ($referent === "utilizatori.Prenume")
         $query = "SELECT  dosare.id, clienti.nume, dosare.status, dosare.problema_drept, dosare.data_inregistrare, utilizatori.Prenume,
        dosare.status, dosare.informatii FROM dosare INNER JOIN clienti ON dosare.client_id=clienti.id INNER JOIN utilizatori
-           ON dosare.user_id=utilizatori.id WHERE utilizatori.Prenume='$filtru' ORDER BY dosare.id ASC";
+           ON dosare.user_id=utilizatori.id WHERE utilizatori.Prenume='$filtru' ORDER BY clienti.nume ASC";
 
     else echo "Cautarea nu afiseaza niciun rezultat";
 

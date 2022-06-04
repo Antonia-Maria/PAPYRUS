@@ -23,12 +23,12 @@ if (isset($_SESSION['counter_adaugadosar'])) {
 } else {
     $_SESSION['counter_adaugadosar'] = 1;
 }
-$query = "SELECT nume FROM clienti";
-$query2 = "SELECT Prenume FROM utilizatori";
-$query3 = "SELECT problema_drept FROM dosare";
-$result = mysqli_query($con, $query) or die(mysqli_error());
-$result2 = mysqli_query($con, $query2) or die(mysqli_error());
-$result3 = mysqli_query($con, $query3) or die(mysqli_error());
+$query_nume = "SELECT nume FROM clienti";
+$query_Prenume = "SELECT Prenume FROM utilizatori";
+$query_Speta = "SELECT problema_drept FROM dosare";
+$result_nume = mysqli_query($con, $query_nume) or die(mysqli_error());
+$result_Prenume = mysqli_query($con, $query_Prenume) or die(mysqli_error());
+$result_Speta = mysqli_query($con, $query_Speta) or die(mysqli_error());
 ?>
 
 <html lang="en">
@@ -67,8 +67,7 @@ $result3 = mysqli_query($con, $query3) or die(mysqli_error());
 <label for="Nume dosar">Nume dosar:</label>
 <input type="text" name="nume" id="nume" list="nume_dosar" placeholder="Alege clientul din lista">
     <datalist id="nume_dosar">
-            <option value="Nume client">Nume client</option>
-              <?php foreach ($result
+            <?php foreach ($result_nume
 
         as $row) { ?>
           <option><?php echo($row["nume"]); }?></option>
@@ -77,8 +76,7 @@ $result3 = mysqli_query($con, $query3) or die(mysqli_error());
     <label for="Speta">Speta:</label>
 <input type="text" name="problema_drept" id="problema_drept" list="Speta" placeholder="Speta">
     <datalist id="Speta">
-            <option>Speta</option>
-              <?php foreach ($result3
+            <?php foreach ($result_Speta
 
         as $row) { ?>
           <option><?php echo($row["problema_drept"]); }?></option>
@@ -87,8 +85,7 @@ $result3 = mysqli_query($con, $query3) or die(mysqli_error());
     <label for="Referent">Referent:</label>
 <input type="text" name="Prenume" id="Prenume" list="Referent" placeholder="Alege referent din lista">
     <datalist id="Referent">
-            <option>Referent</option>
-              <?php foreach ($result2
+            <?php foreach ($result_Prenume
 
         as $row) { ?>
           <option><?php echo($row["Prenume"]); }?></option>
@@ -97,8 +94,7 @@ $result3 = mysqli_query($con, $query3) or die(mysqli_error());
     <label for="Referent">Status dosar:</label>
 <input type="text" name="Status" id="Status" list="Status_id" placeholder="Seteaza status">
     <datalist id="Status_id">
-            <option>Status</option>
-          <option>Preluat in lucru</option>
+            <option>Preluat</option>
         </datalist>
     <br><br>
         <label for="Info">Informatii dosar:</label>
