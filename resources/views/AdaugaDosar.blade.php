@@ -23,8 +23,8 @@ if (isset($_SESSION['counter_adaugadosar'])) {
 } else {
     $_SESSION['counter_adaugadosar'] = 1;
 }
-$query_nume = "SELECT nume FROM clienti";
-$query_Prenume = "SELECT Prenume FROM utilizatori";
+$query_nume = "SELECT nume FROM clienti ORDER BY nume ASC";
+$query_Prenume = "SELECT Prenume FROM utilizatori ORDER BY Prenume ASC";
 $query_Speta = "SELECT problema_drept FROM dosare";
 $result_nume = mysqli_query($con, $query_nume) or die(mysqli_error());
 $result_Prenume = mysqli_query($con, $query_Prenume) or die(mysqli_error());

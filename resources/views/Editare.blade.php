@@ -35,8 +35,8 @@ if (isset($_SESSION['counter_editaredosar'])) {
     <i><b>
     <?php $msg = "Ai vizitat aceasta pagina de " . $_SESSION['counter_editaredosar'] . " ori.";
     echo $msg;
-    $query_nume = "SELECT nume FROM clienti";
-    $query_Prenume = "SELECT Prenume FROM utilizatori";
+    $query_nume = "SELECT nume FROM clienti ORDER BY nume ASC";
+    $query_Prenume = "SELECT Prenume FROM utilizatori ORDER BY Prenume ASC";
     $query_Speta = "SELECT problema_drept FROM dosare";
     $result_nume = mysqli_query($con, $query_nume) or die(mysqli_error());
     $result_Prenume = mysqli_query($con, $query_Prenume) or die(mysqli_error());
@@ -70,16 +70,14 @@ if (isset($_SESSION['counter_editaredosar'])) {
             <label for="Nume dosar">Seteaza nume dosar: </label>
             <input type="text" name="nume" list="nume_dosar" value="{{$dosar['nume']}}">
             <datalist id="nume_dosar">
-                <option value="Nume client">Nume client</option>
                 <?php foreach ($result_nume
 
                 as $row) { ?>
                 <option><?php echo($row["nume"]); }?></option>
             </datalist><br><br>
             <label for="Speta">Modifica speta: </label>
-            <input type="text" name="problema_drept" list="speta_dosar"   value="{{$dosar['problema_drept']}}">
+            <input type="text" name="problema_drept" list="speta_dosar" value="{{$dosar['problema_drept']}}">
             <datalist id="speta_dosar">
-                <option value="Nume client">Nume client</option>
                 <?php foreach ($result_Speta
 
                 as $row) { ?>
@@ -100,7 +98,6 @@ if (isset($_SESSION['counter_editaredosar'])) {
             <input type="text" name="Prenume" list="Prenume_referent" value="{{$dosar['Prenume']}}"> <br><br>
         @endforeach
         <datalist id="Prenume_referent">
-            <option value="Nume client">Nume client</option>
             <?php foreach ($result_Prenume
 
             as $row) { ?>
