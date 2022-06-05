@@ -35,10 +35,12 @@ if (isset($_SESSION['counter_editaredosar'])) {
     <i><b>
     <?php $msg = "Ai vizitat aceasta pagina de " . $_SESSION['counter_editaredosar'] . " ori.";
     echo $msg;
-    $query = "SELECT nume FROM clienti";
-    $query2 = "SELECT Prenume FROM utilizatori";
-    $result = mysqli_query($con, $query) or die(mysqli_error());
-    $result2 = mysqli_query($con, $query2) or die(mysqli_error());
+    $query_nume = "SELECT nume FROM clienti";
+    $query_Prenume = "SELECT Prenume FROM utilizatori";
+    $query_Speta = "SELECT problema_drept FROM dosare";
+    $result_nume = mysqli_query($con, $query_nume) or die(mysqli_error());
+    $result_Prenume = mysqli_query($con, $query_Prenume) or die(mysqli_error());
+    $result_Speta = mysqli_query($con, $query_Speta) or die(mysqli_error());
     ?>
 
 </div>
@@ -69,17 +71,29 @@ if (isset($_SESSION['counter_editaredosar'])) {
             <input type="text" name="nume" list="nume_dosar" value="{{$dosar['nume']}}">
             <datalist id="nume_dosar">
                 <option value="Nume client">Nume client</option>
-                <?php foreach ($result
+                <?php foreach ($result_nume
 
                 as $row) { ?>
                 <option><?php echo($row["nume"]); }?></option>
             </datalist><br><br>
             <label for="Speta">Modifica speta: </label>
-            <input type="text" name="problema_drept" value="{{$dosar['problema_drept']}}"> <br><br>
+            <input type="text" name="problema_drept" list="speta_dosar"   value="{{$dosar['problema_drept']}}">
+            <datalist id="speta_dosar">
+                <option value="Nume client">Nume client</option>
+                <?php foreach ($result_Speta
+
+                as $row) { ?>
+                <option><?php echo($row["problema_drept"]); }?></option>
+            </datalist><br><br>
             <label for="Data inregistrare">Modifica data inregistrare: </label>
             <input type="date" name="data_inregistrare" value="{{$dosar['data_inregistrare']}}" }> <br><br>
             <label for="Status">Modifica status: </label>
-            <input type="text" name="status" value="{{$dosar['status']}}"><br><br>
+            <input type="text" name="status" list="status_dosar" value="{{$dosar['status']}}">
+            <datalist id="status_dosar">
+                <option>Preluat</option>
+                <option>Analizat</option>
+                <option>Finalizat</option>
+            </datalist> <br><br>
             <label for="Informatii">Modifica informatii: </label>
             <input type="text" name="informatii" value="{{$dosar['informatii']}}"> <br><br>
             <label for="Referent">Seteaza referent: </label>
@@ -87,7 +101,7 @@ if (isset($_SESSION['counter_editaredosar'])) {
         @endforeach
         <datalist id="Prenume_referent">
             <option value="Nume client">Nume client</option>
-            <?php foreach ($result2
+            <?php foreach ($result_Prenume
 
             as $row) { ?>
             <option><?php echo($row["Prenume"]); }?></option>
